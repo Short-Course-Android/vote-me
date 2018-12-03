@@ -1,65 +1,55 @@
 package io.ugshortcourse.voteme.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+/**
+ * Base class for all users [Voter]s & [Candidate]s alike
+ */
+sealed class VoteMeUser(
+    open val key: String,
+    open val fullName: String,
+    open val region: String,
+    open val org: String,
+    open val timestamp: Long
+) : Parcelable
+
 /**
  * [Voter] data model
  */
+@Parcelize
 data class Voter(
-    val key: String,
-    val fullName: String,
-    val region: String,
-    val org: String,
-    val timestamp: Long = System.currentTimeMillis(),
+    override val key: String,
+    override val fullName: String,
+    override val region: String,
+    override val org: String,
+    override val timestamp: Long = System.currentTimeMillis(),
     val dues: Long = 0L,
     val voted: Boolean = false
-)
+) : VoteMeUser(key, fullName, region, org, timestamp)
 
 /**
  * [Candidate] data model
  */
+@Parcelize
 data class Candidate(
-    val key: String,
-    val fullName: String,
-    val info: String,
-    val timestamp: Long = System.currentTimeMillis(),
+    override val key: String,
+    override val fullName: String,
+    override val region: String,
+    override val org: String,
+    override val timestamp: Long = System.currentTimeMillis(),
     val image: String,
     val category: String
-)
+) : VoteMeUser(key, fullName, region, org, timestamp)
 
 /**
  * [Vote] data model
  */
+@Parcelize
 data class Vote(
     val key: String,
     val category: String,
     val candidateKey: String,
     val voterKey: String,
     val timestamp: Long = System.currentTimeMillis()
-)
-
-/**
- * [Category] of electoral [Candidate]
- */
-object Category {
-    const val PRESIDENT = "President"
-    const val VICE = "Vice President"
-    const val SECRETARY = "Secretary"
-}
-
-/**
- * Checks for the qualification of a [Voter] based on their dues
- */
-val Voter.hasGoodStanding: Boolean get() = dues >= 10000L
-
-/**
- * Creates a [HashMap] for any voter model
- */
-val Voter.createHashMap: HashMap<String, Any?>
-    get() = hashMapOf(
-        "key" to key,
-        "fullName" to fullName,
-        "region" to region,
-        "org" to org,
-        "timestamp" to timestamp,
-        "dues" to dues,
-        "voted" to voted
-    )
+) : Parcelable
