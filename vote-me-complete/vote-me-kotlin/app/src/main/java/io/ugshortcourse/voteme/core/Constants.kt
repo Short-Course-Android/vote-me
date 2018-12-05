@@ -1,6 +1,7 @@
 package io.ugshortcourse.voteme.core
 
 import android.content.Intent
+import android.os.Bundle
 import androidx.fragment.app.FragmentManager
 import io.ugshortcourse.voteme.model.Candidate
 import io.ugshortcourse.voteme.model.Voter
@@ -52,6 +53,16 @@ fun voteMeLogger(msg: Any?) = println("VoteMeLogger: ${msg.toString()}")
  */
 fun VoteMeBaseActivity.intentTo(target: Class<out VoteMeBaseActivity>) =
     startActivity(Intent(applicationContext, target))
+
+/**
+ * Create intent from subclass of [VoteMeBaseActivity] to another subclass with some data [Bundle]
+ */
+fun VoteMeBaseActivity.intentWithData(target: Class<out VoteMeBaseActivity>, b: Bundle) {
+    val intent = Intent(applicationContext, target)
+    intent.putExtras(b)
+    startActivity(intent)
+}
+
 
 /**
  * Create intent from a subclass of [VoteMeBaseFragment] to a subclass of [VoteMeBaseActivity]

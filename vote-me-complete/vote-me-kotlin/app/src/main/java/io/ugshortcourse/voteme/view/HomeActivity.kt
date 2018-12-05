@@ -9,6 +9,7 @@ import io.ugshortcourse.voteme.R
 import io.ugshortcourse.voteme.core.NO_INTERNET_PROMPT
 import io.ugshortcourse.voteme.core.VoteMeBaseActivity
 import io.ugshortcourse.voteme.core.addFragment
+import io.ugshortcourse.voteme.core.intentTo
 import io.ugshortcourse.voteme.view.fragments.ElectionsFragment
 import io.ugshortcourse.voteme.view.fragments.HomeFragment
 import io.ugshortcourse.voteme.view.fragments.NewsFeedFragment
@@ -16,7 +17,7 @@ import io.ugshortcourse.voteme.view.fragments.VoterInfoFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity(override val layoutId: Int = R.layout.activity_home) : VoteMeBaseActivity() {
-    
+
     private lateinit var fm: FragmentManager
 
     //Listener for change in click events for the bottom navigation view
@@ -51,6 +52,10 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : VoteMe
 
         //Add bottom navigation click listener
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+
+        container.setOnClickListener {
+            intentTo(CategoryActivity::class.java)
+        }
     }
 
     override fun onEnterAnimationComplete() {

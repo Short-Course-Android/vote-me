@@ -10,13 +10,17 @@ import io.ugshortcourse.voteme.controller.CandidateViewModel
 import io.ugshortcourse.voteme.controller.CandidateViewModelFactory
 import io.ugshortcourse.voteme.core.VoteMeBaseActivity
 import io.ugshortcourse.voteme.core.voteMeLogger
+import kotlinx.android.synthetic.main.activity_candidate.*
 
 class CandidateActivity(override val layoutId: Int = R.layout.activity_candidate) : VoteMeBaseActivity() {
 
     override fun onViewCreated(instanceState: Bundle?, intent: Intent) {
+        setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener { onBackPressed() }
 
         if (intent.hasExtra(EXTRA_CATEGORY_TYPE)) {
             val category = intent.getStringExtra(EXTRA_CATEGORY_TYPE)
+            voteMeLogger("Category is: $category")
 
             val repo = CandidateRepository.getInstance(firestore)
             val factory = CandidateViewModelFactory(repo, category)
@@ -24,6 +28,8 @@ class CandidateActivity(override val layoutId: Int = R.layout.activity_candidate
             candidates.observe(this@CandidateActivity, Observer { results ->
                 voteMeLogger(results)
             })
+        } else {
+            finishAfterTransition()
         }
 
     }

@@ -15,20 +15,18 @@ class CandidateRepository private constructor(private val firestore: FirebaseFir
     /**
      * Get all [Candidate]s belonging to a certain category
      */
-    fun getCandidates(vararg categories: String): LiveData<MutableList<Candidate>> {
+    fun getCandidates(category: String): LiveData<MutableList<Candidate>> {
         val results = MutableLiveData<MutableList<Candidate>>()
-        for (category in categories) {
-            firestore.collection(COLLECTION_CANDIDATES).whereEqualTo("category", category)
-                .get().addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val list = it.result?.toObjects(Candidate::class.java)
-                        results.postValue(list)
-                    } else results.postValue(mutableListOf<Candidate>())
-                }.addOnFailureListener {
-                    voteMeLogger(it.localizedMessage)
-                    results.postValue(mutableListOf<Candidate>())
-                }
-        }
+        firestore.collection(COLLECTION_CANDIDATES).whereEqualTo("category", category)
+            .get().addOnCompleteListener {
+                if (it.isSuccessful) {
+                    val list = it.result?.toObjects(Candidate::class.java)
+                    results.postValue(list)
+                } else results.postValue(mutableListOf<Candidate>())
+            }.addOnFailureListener {
+                voteMeLogger(it.localizedMessage)
+                results.postValue(mutableListOf<Candidate>())
+            }
         return results
     }
 
