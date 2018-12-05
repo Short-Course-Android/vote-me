@@ -1,10 +1,14 @@
 package io.ugshortcourse.voteme.core
 
+import android.content.Intent
 import androidx.fragment.app.FragmentManager
 import io.ugshortcourse.voteme.model.Voter
 
 //region DATABASE REFERENCES
 const val COLLECTION_TOKENS = "registered_tokens"
+const val COLLECTION_VOTERS = "voters"
+const val COLLECTION_CANDIDATES = "candidates"
+const val COLLECTION_CANDIDATE_VOTES = "candidates/%s/votes"
 const val DEFAULT_SHARED_PREFS = "vote-me-prefs"
 //endregion DATABASE REFERENCES
 
@@ -42,6 +46,20 @@ val Voter.createHashMap: HashMap<String, Any?>
 //Shows debug log messages to the console
 fun voteMeLogger(msg: Any?) = println("VoteMeLogger: ${msg.toString()}")
 
+/**
+ * Create intent from subclass of [VoteMeBaseActivity] to another subclass
+ */
+fun VoteMeBaseActivity.intentTo(target: Class<out VoteMeBaseActivity>) =
+    startActivity(Intent(applicationContext, target))
+
+/**
+ * Create intent from a subclass of [VoteMeBaseFragment] to a subclass of [VoteMeBaseActivity]
+ */
+fun VoteMeBaseFragment.intentTo(target: Class<out VoteMeBaseActivity>) =
+    startActivity(Intent(requireActivity().applicationContext, target))
+
 //Add fragment to a layout resource
 fun addFragment(fm: FragmentManager, layoutId: Int, fragment: VoteMeBaseFragment) =
     fm.beginTransaction().replace(layoutId, fragment).commit()
+
+fun CharSequence?.couldBeEmpty(): Boolean = this != null && length == 0

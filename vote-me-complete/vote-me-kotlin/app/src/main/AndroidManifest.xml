@@ -3,6 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="io.ugshortcourse.voteme"
           android:installLocation="auto">
+
     <!-- PERMISSIONS -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -18,10 +19,7 @@
             android:supportsRtl="true"
             android:theme="@style/VoteMe.Theme"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity
-                android:name=".view.HomeActivity"
-                android:label="@string/title_activity_home">
-        </activity>
+
         <!-- SERVICES -->
         <service android:name=".core.services.VoteMeFirebaseMessaging">
             <intent-filter>
@@ -37,9 +35,12 @@
                 android:resource="@color/colorAccent"/>
         <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
-                android:value="@string/default_notification_channel_id"/> <!-- ACTIVITIES -->
+                android:value="@string/default_notification_channel_id"/>
+
+        <!--ACTIVITIES-->
         <activity
                 android:name=".view.MainActivity"
+                android:configChanges="orientation|screenLayout|screenSize"
                 android:theme="@style/VoteMe.Theme.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -47,10 +48,18 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".view.LoginActivity"/>
-        <activity android:name=".view.CategoryActivity"/>
-        <activity android:name=".view.VotingActivity"/>
-        <activity android:name=".view.fragments.VoterInfoFragment"/>
+        <activity
+                android:name=".view.HomeActivity"
+                android:configChanges="orientation|screenLayout|screenSize"
+                android:label="@string/title_activity_home"/>
+        <activity android:name=".view.LoginActivity"
+                  android:configChanges="orientation|screenLayout|screenSize"/>
+        <activity android:name=".view.CategoryActivity"
+                  android:configChanges="orientation|screenLayout|screenSize"/>
+        <activity android:name=".view.VotingActivity"
+                  android:configChanges="orientation|screenLayout|screenSize"/>
+        <activity android:name=".view.ImagePreviewActivity"
+                  android:configChanges="orientation|screenLayout|screenSize"/>
     </application>
 
 </manifest>

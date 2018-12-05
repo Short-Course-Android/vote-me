@@ -6,4 +6,5 @@
     <string name="title_profile">Profile</string>
     <string name="title_feeds">News Feeds</string>
     <string name="title_elections">Elections</string>
+    <string name="app_desc">Voting made easy</string>
 </resources>

@@ -26,7 +26,10 @@ data class Voter(
     override val timestamp: Long = System.currentTimeMillis(),
     val dues: Long = 0L,
     val voted: Boolean = false
-) : VoteMeUser(key, fullName, region, org, timestamp)
+) : VoteMeUser(key, fullName, region, org, timestamp) {
+
+    constructor() : this("", "", "", "")
+}
 
 /**
  * [Candidate] data model
@@ -40,7 +43,10 @@ data class Candidate(
     override val timestamp: Long = System.currentTimeMillis(),
     val image: String,
     val category: String
-) : VoteMeUser(key, fullName, region, org, timestamp)
+) : VoteMeUser(key, fullName, region, org, timestamp) {
+
+    constructor() : this("", "", "", "", image = "", category = "")
+}
 
 /**
  * [Vote] data model
@@ -52,4 +58,7 @@ data class Vote(
     val candidateKey: String,
     val voterKey: String,
     val timestamp: Long = System.currentTimeMillis()
-) : Parcelable
+) : Parcelable {
+
+    constructor() : this("", "", "", "")
+}

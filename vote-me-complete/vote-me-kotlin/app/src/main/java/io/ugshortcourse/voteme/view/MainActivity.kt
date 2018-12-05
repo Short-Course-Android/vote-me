@@ -13,7 +13,7 @@ class MainActivity(override val layoutId: Int = R.layout.activity_main) : VoteMe
 
     override fun onViewCreated(instanceState: Bundle?, intent: Intent) {
         Handler().postDelayed({
-            startActivity(Intent(this@MainActivity, if(!database.isLoggedIn) HomeActivity::class.java else LoginActivity::class.java))
+            startActivity(Intent(this@MainActivity, if(database.isLoggedIn) HomeActivity::class.java else LoginActivity::class.java))
             finishAfterTransition()
         }, 1000)
     }
