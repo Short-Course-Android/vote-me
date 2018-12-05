@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 /**
  * Base class for all [Fragment]s
  */
-abstract class VoteMeBaseFragment : Fragment() {
+abstract class VoteMeBaseFragment constructor() : Fragment() {
 
     //To be overridden by the children classes
     abstract fun getLayoutId(): Int

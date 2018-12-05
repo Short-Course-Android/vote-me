@@ -50,7 +50,7 @@
         <activity android:name=".view.LoginActivity"/>
         <activity android:name=".view.CategoryActivity"/>
         <activity android:name=".view.VotingActivity"/>
-        <activity android:name=".view.VoterInfoFragment"/>
+        <activity android:name=".view.fragments.VoterInfoFragment"/>
     </application>
 
 </manifest>
