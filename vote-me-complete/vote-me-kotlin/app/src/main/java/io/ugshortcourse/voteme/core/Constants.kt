@@ -2,6 +2,7 @@ package io.ugshortcourse.voteme.core
 
 import android.content.Intent
 import androidx.fragment.app.FragmentManager
+import io.ugshortcourse.voteme.model.Candidate
 import io.ugshortcourse.voteme.model.Voter
 
 //region DATABASE REFERENCES
@@ -62,4 +63,5 @@ fun VoteMeBaseFragment.intentTo(target: Class<out VoteMeBaseActivity>) =
 fun addFragment(fm: FragmentManager, layoutId: Int, fragment: VoteMeBaseFragment) =
     fm.beginTransaction().replace(layoutId, fragment).commit()
 
+//Checks for nullity and emptiness of a character sequence
 fun CharSequence?.couldBeEmpty(): Boolean = this != null && length == 0

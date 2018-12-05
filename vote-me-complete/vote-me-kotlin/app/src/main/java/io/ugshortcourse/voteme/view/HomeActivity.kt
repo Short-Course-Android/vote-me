@@ -16,6 +16,7 @@ import io.ugshortcourse.voteme.view.fragments.VoterInfoFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity(override val layoutId: Int = R.layout.activity_home) : VoteMeBaseActivity() {
+    
     private lateinit var fm: FragmentManager
 
     //Listener for change in click events for the bottom navigation view
@@ -44,6 +45,9 @@ class HomeActivity(override val layoutId: Int = R.layout.activity_home) : VoteMe
     override fun onViewCreated(instanceState: Bundle?, intent: Intent) {
         // Init fragment manager
         fm = supportFragmentManager
+
+        //Default fragment
+        addFragment(fm, R.id.frame_home, HomeFragment())
 
         //Add bottom navigation click listener
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)

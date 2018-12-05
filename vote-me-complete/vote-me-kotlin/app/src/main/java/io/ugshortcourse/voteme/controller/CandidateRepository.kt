@@ -10,7 +10,7 @@ import io.ugshortcourse.voteme.model.Candidate
 /**
  * A repository of [Candidate]s
  */
-class CandidateRepository constructor(private val firestore: FirebaseFirestore) : VoteMeRepository() {
+class CandidateRepository private constructor(private val firestore: FirebaseFirestore) : VoteMeRepository() {
 
     /**
      * Get all [Candidate]s belonging to a certain category
@@ -23,9 +23,10 @@ class CandidateRepository constructor(private val firestore: FirebaseFirestore) 
                     if (it.isSuccessful) {
                         val list = it.result?.toObjects(Candidate::class.java)
                         results.postValue(list)
-                    }
+                    } else results.postValue(mutableListOf<Candidate>())
                 }.addOnFailureListener {
                     voteMeLogger(it.localizedMessage)
+                    results.postValue(mutableListOf<Candidate>())
                 }
         }
         return results
@@ -36,6 +37,7 @@ class CandidateRepository constructor(private val firestore: FirebaseFirestore) 
         private val LOCK = Any()
         private var instance: CandidateRepository? = null
 
+        //Static instance of the repository
         fun getInstance(firestore: FirebaseFirestore): CandidateRepository {
             if (instance == null) {
                 synchronized(LOCK) {

@@ -60,6 +60,7 @@
                   android:configChanges="orientation|screenLayout|screenSize"/>
         <activity android:name=".view.ImagePreviewActivity"
                   android:configChanges="orientation|screenLayout|screenSize"/>
+        <activity android:name=".view.CandidateActivity"/>
     </application>
 
 </manifest>

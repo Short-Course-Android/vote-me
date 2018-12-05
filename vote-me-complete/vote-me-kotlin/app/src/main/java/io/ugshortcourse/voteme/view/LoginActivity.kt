@@ -29,8 +29,30 @@ class LoginActivity(override val layoutId: Int = R.layout.activity_login) : Vote
             }
 
             //For now, just navigate to the home screen
-            intentTo(HomeActivity::class.java)
-            finishAfterTransition()
+            toast("Searching for ID: ${voter_login_id.text.toString()}...")
+            firestore.collection(COLLECTION_VOTERS)
+                .document(voter_login_id.text.toString())
+                .get().addOnCompleteListener {
+                    if (it.isSuccessful) {
+                        //Obtain the result from the query
+                        val result = it.result
+
+                        //Convert the result into a voter object
+                        val voter = result?.toObject(Voter::class.java)
+
+                        //Display voter's information to the user
+                        voteMeLogger(voter.toString())
+                        database.login(voter)
+                        intentTo(HomeActivity::class.java)
+                        finishAfterTransition()
+                    } else {
+                        toast("Unable to retrieve ${voter_login_name.text.toString()}'s information")
+                    }
+                }.addOnFailureListener {
+                    voteMeLogger(it.localizedMessage)
+                    toast(it.localizedMessage)
+                }
+
         }
 
         //Check account information for the voter in question

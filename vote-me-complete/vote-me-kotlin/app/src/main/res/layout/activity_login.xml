@@ -30,7 +30,7 @@
             app:layout_constraintTop_toBottomOf="@id/app_header_image"
             android:gravity="center_horizontal"
             android:fontFamily="@font/cabin_semibold"
-            android:textSize="22sp"/>
+            android:textSize="@dimen/large_text_size"/>
 
     <!--Application description textview-->
     <TextView

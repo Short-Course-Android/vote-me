@@ -54,7 +54,9 @@ class VoteMePrefs @Inject constructor(private val context: Context) {
     }
 
     //Login user
-    fun login(user: VoteMeUser) {
+    fun login(user: VoteMeUser?) {
+        user ?: return
+
         isLoggedIn = true
         this.user = user
         this.key = user.key
